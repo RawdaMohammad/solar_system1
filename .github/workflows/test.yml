@@ -8,9 +8,10 @@ on:
             - 'feature/*'
 
 
-jobs:
+[8:07 PM, 6/3/2025] Nouran UI: jobs:
   unit-testing:
     name: Unit Testing
+    # matrix strategy di zy el for loop
     strategy:
       matrix:
         node_version: [18, 20]
@@ -29,10 +30,81 @@ jobs:
         run: npm install
 
       - name: Run unit tests
+        # id: hamada
         run: npm test
 
       - uses: actions/upload-artifact@v4
-        if: failure() || success()
-        with:
-          name: moch-test-result
-          path: test-results.xml
+        #if: steps.ha…
+[8:07 PM, 6/3/2025] Nouran UI: .
+[8:08 PM, 6/3/2025] Rokaya Cross: انا مزنوقة ق اليونيت تيستينج
+[8:08 PM, 6/3/2025] Rokaya Cross: الحقوني
+[8:09 PM, 6/3/2025] Radwa Cross: name: fourth wf
+
+on: 
+    workflow_dispatch:
+    push:
+        branches:
+            - main
+            - 'feature/*'
+
+
+jobs:
+   unit-testing:
+        name: Unit Testing
+        strategy:
+            matrix:
+                node_version: [18,20]
+                operating_system: [ubuntu-latest, macos-latest]
+
+        runs-on: ${{matrix.operating_system}}
+
+        steps:
+            #use uses with actions not run
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup node
+              uses: actions/setup-node@v4
+              with:
+                node-version: ${{matrix.node_version}}
+            
+            - name: install npm
+              run: npm install
+
+            - name: unit testing
+              run: npm test
+            
+            - uses: actions/upload-artifact@v4
+              if: failure() || success()
+              with:
+                name: moch-test-result
+                path: test-results.xml
+
+
+
+   code-coverage:
+        name: Unit Testing
+
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Setup node
+              uses: actions/setup-node@v4
+              with:
+                node-version: 20
+            
+            - name: install npm
+              run: npm install
+
+            - name: unit testing
+              run: npm run coverage
+            
+            - uses: actions/upload-artifact@v4
+              if: failure() || success()
+              with:
+                name: code-coverage-result
+                path: coverage
+                retention-days: 5
