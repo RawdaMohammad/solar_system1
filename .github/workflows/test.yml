@@ -37,5 +37,5 @@ jobs:
             - name: using Artifacts
               uses: actions/upload-artifact@v4
               with:
-                name: moch-test-result
+                name: moch-test
                 path: test-results.xml
