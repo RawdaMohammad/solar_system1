@@ -9,41 +9,8 @@ on:
 
 
 jobs:
-   unit-testing:
-        name: Unit Testing
-        strategy:
-            matrix:
-                node_version: [18,20]
-                operating_system: [ubuntu-latest, macos-latest]
-
-        runs-on: ${{matrix.operating_system}}
-
-        steps:
-            #use uses with actions not run
-            - name: Checkout
-              uses: actions/checkout@v4
-
-            - name: Setup node
-              uses: actions/setup-node@v4
-              with:
-                node-version: ${{matrix.node_version}}
-            
-            - name: install npm
-              run: npm install
-
-            - name: unit testing
-              run: npm test
-            
-            - uses: actions/upload-artifact@v4
-              if: failure() || success()
-              with:
-                name: moch-test-result
-                path: test-results.xml
-
-
-
    code-coverage:
-        name: Unit Testing
+        name: Coverage
 
         runs-on: ubuntu-latest
 
