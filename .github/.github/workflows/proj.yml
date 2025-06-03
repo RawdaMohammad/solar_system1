@@ -1,0 +1,10 @@
+name: firt wf 
+
+on: push 
+
+jobs: 
+    first-job: 
+        runs-on: ubuntu
+        steps: 
+            - name: print my name 
+              run: echo "ITI"
